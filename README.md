@@ -1,5 +1,5 @@
 # Rails
-
+Learning ruby on rails on https://www.railstutorial.org/book
 ## Shell
 
 1. Run server
@@ -22,6 +22,13 @@
 	Rails.application.routes.draw do
       resources :users
       root 'users#index'
+    end
+    ```
+2. Validation
+	*app/models/micropost.rb*
+    ```
+    class micropost < ApplicationRecord
+      validates :content, length: {maximum: 100}
     end
     ```
 

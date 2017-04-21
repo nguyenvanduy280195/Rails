@@ -3,54 +3,71 @@ Learning ruby on rails on https://www.railstutorial.org/book
 ## Shell
 
 
+### bundle
+    
+    $ bundle install
+    
+### bin/rails
 
-1. Creating new project
+1. Create a new project
 	```
     $ rails _5.0.1_ new toy_app
     ```
-2. Clone the repo and install the needed gem
-	```
-    $ bundle install --without production
-    ```
-3. Run server
+    
+2. Run server
 	```
     $ rails server
-    ```
-	or
-	```
     $ rails server -b <IP> -p <PORT>
     ```
 
-4. The Users resource
-	```
+3. Genarate
+
+	3.1. controller + view + model
+    ```
     $ rails generate scaffold User name:string email:string
     ```
-5. Migrating the database
-	```
+    3.2. controller
+    ```
+    $ rails generate controller StaticPages home help
+    # controller:	StaticPages
+    # action:		home
+    # action:		help
+    ```
+    3.3.
+    
+4. Migrate
+
+	4.1. Migrating the database
+    ```
     $ rails db:migrate
     ```
-6. Undo a single migration step using
-	```
+    4.2. Undo a single migration step using
+    ```
     $ rails db:rollback
     ```
-7. To go all the way back to the beginning
+    4.3. To go all the way back to the beginning
 	```
     $ rails db:migrate VERSION=0
     ```
-8. Run the test
-	```
+    
+5. Test
+
+	5.1. Run the test
+    ```
     $ rails test
     ```
-9. Generating a Static Pages controller
-	```
-    $ rails generate controller StaticPages home help
-    ```
-10. Destroying the Static Pages controller
-	```
-	$ rails destroy  controller StaticPages home help
-    ```
-11. 
 
+6. Destroy
+
+	6.1.
+	```
+	$ rails destroy controller StaticPages home help
+    ```
+    
+    6.2.
+    ```
+    $ rails destroy model User
+    ```
 ## *.rb
 
 1. Changing controller#action
@@ -62,10 +79,13 @@ Learning ruby on rails on https://www.railstutorial.org/book
     end
     ```
 2. Validation
+
 	*app/models/micropost.rb*
     ```
     class micropost < ApplicationRecord
-      validates :content, length: {maximum: 100}
+      validates :content, length: {maximum: 100}, presence: true
+      #length: {maximum: 100}	-> length maximum 100
+      #presence: true			-> Name cant be blank
     end
     ```
 3. The routes for the home and help actions in the Static Pages controller.
@@ -76,8 +96,23 @@ Learning ruby on rails on https://www.railstutorial.org/book
   	  root 'application#hello'
 	end
     ```
-4. 
+4. Associations between different data models
 
-## *.irb
+	*app/models/user.rb*
+    ```
+    class User < ApplicationRecord
+      has_many :microposts
+    end
+    ```
+    
+    *app/models/micropost.rb*
+    ```
+    class Micropost < ApplicationRecord
+      belongs_to :user
+	  validates :content, length: { maximum: 140 }
+	end
+    ```
+
+## *.erb
 1. 
 
